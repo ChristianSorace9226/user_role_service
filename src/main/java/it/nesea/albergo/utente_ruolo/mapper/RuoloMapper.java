@@ -10,7 +10,9 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE,
         injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public abstract class RuoloMapper {
-    public abstract RuoloDTO toRuoloDTO (Ruolo ruolo);
-    public abstract Ruolo toRuolo (RuoloDTO ruoloDTO);
-    public abstract Ruolo requestToEntity (CreaRuoloRequest request);
+    public abstract RuoloDTO toRuoloDTO(Ruolo ruolo);
+
+    public abstract Ruolo toRuolo(RuoloDTO ruoloDTO);
+
+    public abstract Ruolo requestToEntity(CreaRuoloRequest request);
 }

@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class UtenteRuoloApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(UtenteRuoloApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(UtenteRuoloApplication.class, args);
+    }
 
 }

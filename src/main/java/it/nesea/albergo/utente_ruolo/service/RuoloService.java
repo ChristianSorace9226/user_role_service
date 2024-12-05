@@ -5,5 +5,5 @@ import it.nesea.albergo.utente_ruolo.dto.request.CreaRuoloRequest;
 
 
 public interface RuoloService {
-    public RuoloDTO creaRuolo(CreaRuoloRequest request);
+    RuoloDTO creaRuolo(CreaRuoloRequest request);
 }
