@@ -42,5 +42,4 @@ public class UtenteController {
     public ResponseEntity<CustomResponse<UtenteDto>> modificaUtente(@Valid @RequestBody ModUtenteDto modUtenteDto, @PathVariable int id) {
         return ResponseEntity.ok(CustomResponse.success(userService.modificaUtente(modUtenteDto, (short) id)));
     }
-
 }
