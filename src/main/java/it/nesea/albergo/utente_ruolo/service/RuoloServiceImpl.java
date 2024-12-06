@@ -39,7 +39,7 @@ public class RuoloServiceImpl implements RuoloService {
 
     @Override
     @Transactional
-    public RuoloDTO modificaRuolo(CreaRuoloRequest request, Byte id) {
+    public RuoloDTO modificaRuolo(CreaRuoloRequest request, Integer id) {
         if (ruoloRepository.findById(id).isPresent()) {
             log.info("trovato ruolo con id fornito");
             Ruolo ruolo = ruoloRepository.findById(id).get();
@@ -51,6 +51,5 @@ public class RuoloServiceImpl implements RuoloService {
             log.warn("Stai cercando di modificare un record che non esiste");
             throw new NotFoundException("Nessun ruolo trovato dato l'id");
         }
-
     }
 }
