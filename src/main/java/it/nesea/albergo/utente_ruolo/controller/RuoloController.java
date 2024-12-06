@@ -24,5 +24,11 @@ public class RuoloController {
         return ResponseEntity.ok(CustomResponse.success(ruoloService.creaRuolo(request)));
     }
 
+    @PutMapping("/modifica-ruolo/{id}")
+    public ResponseEntity<CustomResponse<RuoloDTO>> modificaRuolo(@Valid @RequestBody CreaRuoloRequest request,
+                                                                  @PathVariable Byte id) {
+        return ResponseEntity.ok(CustomResponse.success(ruoloService.modificaRuolo(request, id)));
+    }
+
 
 }
