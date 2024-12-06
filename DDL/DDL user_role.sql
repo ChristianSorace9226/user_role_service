@@ -2,6 +2,8 @@ CREATE SCHEMA IF NOT EXISTS user_role;
 
 DROP TABLE user_role.utente;
 DROP TABLE user_role.ruolo;
+DROP SEQUENCE user_role.seq_ruolo;
+DROP SEQUENCE user_role.seq_utente;
 
 CREATE SEQUENCE user_role.seq_ruolo
 START WITH 1
@@ -28,7 +30,7 @@ CREATE TABLE IF NOT EXISTS user_role.utente (
 	nome VARCHAR(50) NOT NULL,
 	cognome VARCHAR(50) NOT NULL,
 	id_ruolo NUMERIC(2) NOT NULL,
-	cancellato DATE NOT NULL,
+	data_cancellazione DATE NOT NULL,
 	CONSTRAINT pk_utente PRIMARY KEY(id),
 	CONSTRAINT fk_utente_ruolo FOREIGN KEY(id_ruolo) REFERENCES user_role.ruolo(id)
 );
