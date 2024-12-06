@@ -7,16 +7,13 @@ import java.io.Serial;
 import java.io.Serializable;
 
 @Data
-public class ModUtenteDto implements Serializable {
+public class RicercaUtenteDto implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = -5022023092538610470L;
+    private static final long serialVersionUID = -7213805488428407346L;
 
     @Size(min = 2, max = 50)
     private String nome;
 
-    @Size(min = 2, max = 50)
-    private String cognome;
-
-    private Integer idRuolo;
+    private Short idUtente;
 }

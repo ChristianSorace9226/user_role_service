@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class CreaUtenteDto implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = 6318970065276492008L;
+    private static final long serialVersionUID = 7646631177953932401L;
 
     @NotNull
     @NotBlank
