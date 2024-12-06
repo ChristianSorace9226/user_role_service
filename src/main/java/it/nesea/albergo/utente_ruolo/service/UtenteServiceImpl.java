@@ -35,9 +35,10 @@ public class UtenteServiceImpl implements UtenteService {
         utenteRepository.save(utente);
     }
 
-    public void canellaUtente(short idUtente){
-        log.info("Cancellazione utente [{}] iniziata", idUtente);
-        Utente utente = utenteRepository.findById(idUtente)
+    @Override
+    public void cancellaUtente(short id){
+        log.info("Cancellazione utente [{}] iniziata", id);
+        Utente utente = utenteRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Utente non trovato"));
         utente.setCancellato(true);
         utenteRepository.save(utente);
