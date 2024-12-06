@@ -33,7 +33,7 @@ public class UtenteController {
         return ResponseEntity.ok(CustomResponse.success(userService.createUtente(creaUtenteDto)));
     }
 
-    @DeleteMapping("/cancella/{id}")
+    @PutMapping("/cancella/{id}")
     public ResponseEntity<CustomResponse<LocalDate>> cancellazioneUtente(@PathVariable int id) {
         return ResponseEntity.ok(CustomResponse.success(userService.cancellaUtente((short) id)));
     }
