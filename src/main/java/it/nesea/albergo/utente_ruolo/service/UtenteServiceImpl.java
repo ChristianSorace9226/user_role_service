@@ -89,6 +89,10 @@ public class UtenteServiceImpl implements UtenteService {
         if (ricercaUtenteDto.getIdUtente() == null && ricercaUtenteDto.getNome() == null) {
             log.info("Ricerca utenti: nessun criterio di ricerca specificato. Inizio ricerca non filtrata");
             List<Utente> utenti = utenteRepository.findAll();
+            if(utenti.isEmpty()){
+                log.warn("Nessun utente trovato");
+                throw new NotFoundException("Nessun utente trovato");
+            }
             return utenteMapper.toDtoList(utenti);
         }
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
