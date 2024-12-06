@@ -7,6 +7,8 @@ import it.nesea.albergo.utente_ruolo.model.entity.Ruolo;
 import it.nesea.albergo.utente_ruolo.model.entity.Utente;
 import org.mapstruct.*;
 
+import java.util.List;
+
 @Mapper(
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_NULL,
@@ -31,4 +33,7 @@ public interface UtenteMapper {
         return ruolo.getId();
     }
 
+    List<UtenteDto> toDtoList(List<Utente> utenti);
+
+    List<Utente> toEntityList(List<UtenteDto> utentiDto);
 }
