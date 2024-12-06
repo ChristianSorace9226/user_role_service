@@ -35,5 +35,10 @@ public class RuoloController {
         return ResponseEntity.ok(CustomResponse.success(ruoloService.cancellaRuolo(id)));
     }
 
+    @GetMapping("/ricerca-ruolo")
+    public ResponseEntity<CustomResponse<?>> ricercaRuolo(@Valid @RequestParam(value = "nome", required = false) String nome) {
+        return ResponseEntity.ok(CustomResponse.success(ruoloService.ricercaRuolo(nome)));
+    }
+
 
 }

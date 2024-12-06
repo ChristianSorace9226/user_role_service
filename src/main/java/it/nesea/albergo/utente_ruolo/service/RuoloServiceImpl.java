@@ -12,6 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Data
 @AllArgsConstructor
@@ -67,4 +70,27 @@ public class RuoloServiceImpl implements RuoloService {
         }
         return null;
     }
+
+    @Override
+    public Object ricercaRuolo(String nome) {
+        if (nome != null && !nome.isEmpty()) {
+            Ruolo ruolo = ruoloRepository.findByNome(nome);
+            if (ruolo != null) {
+                log.info("ricerca ruolo per nome");
+                return ruoloMapper.toRuoloDTO(ruolo);
+            } else {
+                StringBuilder sb = new StringBuilder().append("ruolo ").append(nome).append(" non trovato");
+                log.warn(sb.toString());
+                throw new NotFoundException(sb.toString());
+            }
+        } else {
+            log.info("ricerca tutti i ruoli");
+            List<Ruolo> ruoli = ruoloRepository.findAll();
+            return ruoli.stream()
+                    .map(ruoloMapper::toRuoloDTO)
+                    .collect(Collectors.toList());
+        }
+    }
+
+
 }
