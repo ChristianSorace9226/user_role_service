@@ -1,11 +1,16 @@
 package it.nesea.albergo.utente_ruolo.service;
 
 import it.nesea.albergo.utente_ruolo.dto.RuoloDTO;
+import it.nesea.albergo.utente_ruolo.dto.UtenteDto;
+import it.nesea.albergo.utente_ruolo.dto.request.AssegnaRuoloRequest;
 import it.nesea.albergo.utente_ruolo.dto.request.CreaRuoloRequest;
 import it.nesea.albergo.utente_ruolo.exception.NotFoundException;
 import it.nesea.albergo.utente_ruolo.mapper.RuoloMapper;
+import it.nesea.albergo.utente_ruolo.mapper.UtenteMapper;
 import it.nesea.albergo.utente_ruolo.model.entity.Ruolo;
+import it.nesea.albergo.utente_ruolo.model.entity.Utente;
 import it.nesea.albergo.utente_ruolo.model.repository.RuoloRepository;
+import it.nesea.albergo.utente_ruolo.model.repository.UtenteRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +26,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public class RuoloServiceImpl implements RuoloService {
 
+    private final UtenteRepository utenteRepository;
     private final RuoloRepository ruoloRepository;
+    private final UtenteMapper utenteMapper;
     private final RuoloMapper ruoloMapper;
 
 
@@ -70,6 +77,24 @@ public class RuoloServiceImpl implements RuoloService {
             throw new NotFoundException("Nessun ruolo trovato dato l'id");
         }
         return null;
+    }
+
+    @Override
+    public List<UtenteDto> assegnaRuolo(AssegnaRuoloRequest request) {
+        Integer idRuolo = request.getIdRuolo();
+        Ruolo ruolo = ruoloRepository.findById(idRuolo).orElseThrow(() ->
+                new NotFoundException("Ruolo non trovato per id: " + idRuolo));
+        List<Utente> utenti = utenteRepository.findAllById(request.getIdsUtente());
+        if (utenti.isEmpty()) {
+            log.warn("lista utenti vuota: nessun utente trovato con i rispettivi id");
+            throw new NotFoundException("Nessun utente trovato con gli ID forniti.");
+        }
+        utenti.forEach(utente -> utente.setRuolo(ruolo));
+        utenteRepository.saveAll(utenti);
+        log.info("lista utenti aggiornata con i ruoli salvata correttamente nel db");
+        return utenti.stream()
+                .map(utenteMapper::entityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +15,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CustomResponse<T> {
+public class CustomResponse<T> implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 7646631177953932401L;
+
     T response;
     List<String> errorMessage;
 

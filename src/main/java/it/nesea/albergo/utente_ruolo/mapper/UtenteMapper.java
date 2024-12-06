@@ -25,6 +25,7 @@ public interface UtenteMapper {
     Utente dtoToEntity(UtenteDto utenteDto);
 
     @Mapping(source = "ruolo", target = "idRuolo")
+        // source = campo dell'input / target = variabile obiettivo oggetto di ritorno
     UtenteDto entityToDto(Utente utente);
 
     default Integer mapRoleToRoleId(Ruolo ruolo) {

@@ -1,6 +1,7 @@
 package it.nesea.albergo.utente_ruolo.controller;
 
 import it.nesea.albergo.utente_ruolo.dto.RuoloDTO;
+import it.nesea.albergo.utente_ruolo.dto.request.AssegnaRuoloRequest;
 import it.nesea.albergo.utente_ruolo.dto.request.CreaRuoloRequest;
 import it.nesea.albergo.utente_ruolo.dto.response.CustomResponse;
 import it.nesea.albergo.utente_ruolo.service.RuoloService;
@@ -18,7 +19,6 @@ public class RuoloController {
 
     private final RuoloService ruoloService;
 
-    //@RequestHeader("Authorization") String token,
     @PostMapping("/crea-ruolo")
     public ResponseEntity<CustomResponse<RuoloDTO>> creaRuolo(@Valid @RequestBody CreaRuoloRequest request) {
         return ResponseEntity.ok(CustomResponse.success(ruoloService.creaRuolo(request)));
@@ -38,6 +38,11 @@ public class RuoloController {
     @GetMapping("/ricerca-ruolo")
     public ResponseEntity<CustomResponse<?>> ricercaRuolo(@Valid @RequestParam(value = "nome", required = false) String nome) {
         return ResponseEntity.ok(CustomResponse.success(ruoloService.ricercaRuolo(nome)));
+    }
+
+    @PostMapping("/assegna-ruolo")
+    public ResponseEntity<CustomResponse<?>> assegnaRuolo(@Valid @RequestBody AssegnaRuoloRequest request) {
+        return ResponseEntity.ok(CustomResponse.success(ruoloService.assegnaRuolo(request)));
     }
 
 
