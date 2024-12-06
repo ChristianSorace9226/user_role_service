@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS user_role.utente (
 	nome VARCHAR(50) NOT NULL,
 	cognome VARCHAR(50) NOT NULL,
 	id_ruolo NUMERIC(2) NOT NULL,
-	data_cancellazione DATE NOT NULL,
+	data_cancellazione DATE,
 	CONSTRAINT pk_utente PRIMARY KEY(id),
 	CONSTRAINT fk_utente_ruolo FOREIGN KEY(id_ruolo) REFERENCES user_role.ruolo(id)
 );
