@@ -18,4 +18,5 @@ public class RuoloDTO {
 
     @NotBlank
     String nome;
+
 }
