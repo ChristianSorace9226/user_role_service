@@ -1,5 +1,6 @@
 package it.nesea.albergo.utente_ruolo.service;
 
+import it.nesea.albergo.utente_ruolo.dto.UtenteDto;
 import it.nesea.albergo.utente_ruolo.dto.request.CreaUtenteDto;
 import it.nesea.albergo.utente_ruolo.exception.NotFoundException;
 import it.nesea.albergo.utente_ruolo.mapper.UtenteMapper;
@@ -9,6 +10,8 @@ import it.nesea.albergo.utente_ruolo.model.repository.RuoloRepository;
 import it.nesea.albergo.utente_ruolo.model.repository.UtenteRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 
 
 @Service
@@ -26,21 +29,24 @@ public class UtenteServiceImpl implements UtenteService {
     }
 
     @Override
-    public void createUtente(CreaUtenteDto creaUtenteDto) {
+    public UtenteDto createUtente(CreaUtenteDto creaUtenteDto) {
         log.info("Creazione utente: {}", creaUtenteDto);
         Utente utente = utenteMapper.toEntity(creaUtenteDto);
         Ruolo ruolo = ruoloRepository.findById(creaUtenteDto.getIdRuolo())
                 .orElseThrow(() -> new NotFoundException("Ruolo non trovato"));
         utente.setRuolo(ruolo);
+        utente.setDataCancellazione(null);
         utenteRepository.save(utente);
+        return utenteMapper.entityToDto(utente);
     }
 
     @Override
-    public void cancellaUtente(short id){
+    public LocalDate cancellaUtente(short id){
         log.info("Cancellazione utente [{}] iniziata", id);
         Utente utente = utenteRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Utente non trovato"));
-        utente.setCancellato(true);
+        utente.setDataCancellazione(LocalDate.now());
         utenteRepository.save(utente);
+        return utente.getDataCancellazione();
     }
 }

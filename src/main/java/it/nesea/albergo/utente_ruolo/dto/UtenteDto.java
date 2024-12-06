@@ -1,10 +1,13 @@
 package it.nesea.albergo.utente_ruolo.dto;
 
 import it.nesea.albergo.utente_ruolo.model.entity.Ruolo;
+import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDate;
 
+@Data
 public class UtenteDto implements Serializable {
 
     @Serial
@@ -14,5 +17,6 @@ public class UtenteDto implements Serializable {
     private String nome;
     private String cognome;
     private Ruolo ruolo;
+    private LocalDate dataCancellazione;
 
 }

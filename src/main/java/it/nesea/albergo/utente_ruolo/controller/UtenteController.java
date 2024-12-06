@@ -1,11 +1,14 @@
 package it.nesea.albergo.utente_ruolo.controller;
 
+import it.nesea.albergo.utente_ruolo.dto.UtenteDto;
 import it.nesea.albergo.utente_ruolo.dto.request.CreaUtenteDto;
+import it.nesea.albergo.utente_ruolo.dto.response.CustomResponse;
 import it.nesea.albergo.utente_ruolo.service.UtenteService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/utente")
@@ -18,23 +21,12 @@ public class UtenteController {
     }
 
     @PostMapping("/crea-utente")
-    public ResponseEntity<?> creazioneUtente(@Valid @RequestBody CreaUtenteDto creaUtenteDto) {
-        try {
-            userService.createUtente(creaUtenteDto);
-            return ResponseEntity.ok().build();
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-        }
+    public ResponseEntity<CustomResponse<UtenteDto>> creazioneUtente(@Valid @RequestBody CreaUtenteDto creaUtenteDto) {
+        return ResponseEntity.ok(CustomResponse.success(userService.createUtente(creaUtenteDto)));
     }
 
     @DeleteMapping("/cancella-utente/{id}")
-    public ResponseEntity<?> cancellazioneUtente(@PathVariable int id) {
-        try {
-            userService.cancellaUtente((short) id);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-        }
+    public ResponseEntity<CustomResponse<LocalDate>> cancellazioneUtente(@PathVariable int id) {
+        return ResponseEntity.ok(CustomResponse.success(userService.cancellaUtente((short) id)));
     }
-
 }
