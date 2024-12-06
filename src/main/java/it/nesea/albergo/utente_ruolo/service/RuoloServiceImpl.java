@@ -36,4 +36,20 @@ public class RuoloServiceImpl implements RuoloService {
             throw new NotFoundException("record gia presente nel db");
         }
     }
+
+    @Override
+    @Transactional
+    public RuoloDTO modificaRuolo(CreaRuoloRequest request, Integer id) {
+        if (ruoloRepository.findById(id).isPresent()) {
+            log.info("trovato ruolo con id fornito");
+            Ruolo ruolo = ruoloRepository.findById(id).get();
+            ruolo.setNome(request.getNome());
+            ruolo = ruoloRepository.save(ruolo);
+            log.info("Ruolo modificato salvato correttamente sul db");
+            return ruoloMapper.toRuoloDTO(ruolo);
+        } else {
+            log.warn("Stai cercando di modificare un record che non esiste");
+            throw new NotFoundException("Nessun ruolo trovato dato l'id");
+        }
+    }
 }
