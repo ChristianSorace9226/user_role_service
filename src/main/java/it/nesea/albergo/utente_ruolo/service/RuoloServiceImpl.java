@@ -59,6 +59,7 @@ public class RuoloServiceImpl implements RuoloService {
     @Override
     @Transactional
     public Void cancellaRuolo(Integer id) {
+        //todo: aggiungi il controllo per verificare che,prima di cancellare un ruolo,non sia assegnato ad un utente valido
         if (ruoloRepository.findById(id).isPresent()) {
             log.info("il ruolo trovato esiste nel db");
             Ruolo ruolo = ruoloRepository.findById(id).get();
