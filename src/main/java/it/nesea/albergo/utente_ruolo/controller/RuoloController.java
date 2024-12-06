@@ -30,5 +30,10 @@ public class RuoloController {
         return ResponseEntity.ok(CustomResponse.success(ruoloService.modificaRuolo(request, id)));
     }
 
+    @DeleteMapping("/cancella-ruolo/{id}")
+    public ResponseEntity<CustomResponse<Void>> cancellaRuolo(@Valid @PathVariable Integer id) {
+        return ResponseEntity.ok(CustomResponse.success(ruoloService.cancellaRuolo(id)));
+    }
+
 
 }

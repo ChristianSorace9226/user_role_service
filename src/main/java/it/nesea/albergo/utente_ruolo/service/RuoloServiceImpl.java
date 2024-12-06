@@ -52,4 +52,19 @@ public class RuoloServiceImpl implements RuoloService {
             throw new NotFoundException("Nessun ruolo trovato dato l'id");
         }
     }
+
+    @Override
+    @Transactional
+    public Void cancellaRuolo(Integer id) {
+        if (ruoloRepository.findById(id).isPresent()) {
+            log.info("il ruolo trovato esiste nel db");
+            Ruolo ruolo = ruoloRepository.findById(id).get();
+            ruoloRepository.delete(ruolo);
+            log.info("Ruolo cancellato correttamente");
+        } else {
+            log.warn("Nessun ruolo trovato con l'id selezionato");
+            throw new NotFoundException("Nessun ruolo trovato dato l'id");
+        }
+        return null;
+    }
 }
