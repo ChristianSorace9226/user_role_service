@@ -1,6 +1,5 @@
 package it.nesea.albergo.utente_ruolo.dto;
 
-import it.nesea.albergo.utente_ruolo.model.entity.Ruolo;
 import lombok.Data;
 
 import java.io.Serial;
@@ -16,7 +15,7 @@ public class UtenteDto implements Serializable {
     private short id;
     private String nome;
     private String cognome;
-    private Ruolo ruolo;
+    private int idRuolo;
     private LocalDate dataCancellazione;
 
 }

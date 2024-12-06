@@ -2,6 +2,7 @@ package it.nesea.albergo.utente_ruolo.controller;
 
 import it.nesea.albergo.utente_ruolo.dto.UtenteDto;
 import it.nesea.albergo.utente_ruolo.dto.request.CreaUtenteDto;
+import it.nesea.albergo.utente_ruolo.dto.request.ModUtenteDto;
 import it.nesea.albergo.utente_ruolo.dto.response.CustomResponse;
 import it.nesea.albergo.utente_ruolo.service.UtenteService;
 import jakarta.validation.Valid;
@@ -20,13 +21,19 @@ public class UtenteController {
         this.userService = userService;
     }
 
-    @PostMapping("/crea-utente")
+    @PostMapping("/crea")
     public ResponseEntity<CustomResponse<UtenteDto>> creazioneUtente(@Valid @RequestBody CreaUtenteDto creaUtenteDto) {
         return ResponseEntity.ok(CustomResponse.success(userService.createUtente(creaUtenteDto)));
     }
 
-    @DeleteMapping("/cancella-utente/{id}")
+    @DeleteMapping("/cancella/{id}")
     public ResponseEntity<CustomResponse<LocalDate>> cancellazioneUtente(@PathVariable int id) {
         return ResponseEntity.ok(CustomResponse.success(userService.cancellaUtente((short) id)));
     }
+
+    @PutMapping("/modifica/{id}")
+    public ResponseEntity<CustomResponse<UtenteDto>> modificaUtente(@Valid @RequestBody ModUtenteDto modUtenteDto, @PathVariable int id) {
+        return ResponseEntity.ok(CustomResponse.success(userService.modificaUtente(modUtenteDto, (short) id)));
+    }
+
 }
