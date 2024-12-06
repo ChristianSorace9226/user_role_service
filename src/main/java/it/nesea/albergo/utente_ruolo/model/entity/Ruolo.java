@@ -12,18 +12,19 @@ public class Ruolo implements Serializable {
     private static final long serialVersionUID = 8007514805587848964L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ruoloGenerator")
+    @SequenceGenerator(name = "ruoloGenerator", schema = "user_role", sequenceName = "seq_ruolo", allocationSize = 1)
     @Column(name = "ID", nullable = false, precision = 2)
-    private byte id;
+    private int id;
 
     @Column(name = "NOME", nullable = false, length = 20)
     private String nome;
 
-    public byte getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(byte id) {
+    public void setId(int id) {
         this.id = id;
     }
 

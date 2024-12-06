@@ -1,6 +1,7 @@
 package it.nesea.albergo.utente_ruolo.service;
 
 import it.nesea.albergo.utente_ruolo.dto.request.CreaUtenteDto;
+import it.nesea.albergo.utente_ruolo.exception.NotFoundException;
 import it.nesea.albergo.utente_ruolo.mapper.UtenteMapper;
 import it.nesea.albergo.utente_ruolo.model.entity.Ruolo;
 import it.nesea.albergo.utente_ruolo.model.entity.Utente;
@@ -29,8 +30,16 @@ public class UtenteServiceImpl implements UtenteService {
         log.info("Creazione utente: {}", creaUtenteDto);
         Utente utente = utenteMapper.toEntity(creaUtenteDto);
         Ruolo ruolo = ruoloRepository.findById(creaUtenteDto.getIdRuolo())
-                .orElseThrow(() -> new RuntimeException("Ruolo non trovato"));
+                .orElseThrow(() -> new NotFoundException("Ruolo non trovato"));
         utente.setRuolo(ruolo);
+        utenteRepository.save(utente);
+    }
+
+    public void canellaUtente(short idUtente){
+        log.info("Cancellazione utente [{}] iniziata", idUtente);
+        Utente utente = utenteRepository.findById(idUtente)
+                .orElseThrow(() -> new NotFoundException("Utente non trovato"));
+        utente.setCancellato(true);
         utenteRepository.save(utente);
     }
 }

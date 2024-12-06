@@ -12,7 +12,8 @@ public class Utente implements Serializable {
     private static final long serialVersionUID = -4853865046646149642L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "utenteGenerator")
+    @SequenceGenerator(name = "utenteGenerator", schema = "user_role", sequenceName = "seq_utente", allocationSize = 1)
     @Column(name = "ID", nullable = false, precision = 4)
     private short id;
 
@@ -26,6 +27,9 @@ public class Utente implements Serializable {
 //    @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "ID_RUOLO", nullable = false)
     private Ruolo ruolo;
+
+    @Column(name = "CANCELLATO", nullable = false)
+    private boolean cancellato;
 
     public short getId() {
         return id;
@@ -59,4 +63,11 @@ public class Utente implements Serializable {
         this.ruolo = idRuolo;
     }
 
+    public boolean isCancellato() {
+        return cancellato;
+    }
+
+    public void setCancellato(boolean cancellato) {
+        this.cancellato = cancellato;
+    }
 }

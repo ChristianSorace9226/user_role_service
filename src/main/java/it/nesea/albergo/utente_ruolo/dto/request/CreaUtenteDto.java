@@ -26,6 +26,6 @@ public class CreaUtenteDto implements Serializable {
     private String cognome;
 
     @Min(1)
-    private byte idRuolo;
+    private int idRuolo;
 
 }
