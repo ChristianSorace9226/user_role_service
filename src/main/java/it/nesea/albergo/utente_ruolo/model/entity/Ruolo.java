@@ -35,5 +35,4 @@ public class Ruolo implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
 }

@@ -27,5 +27,4 @@ public class CreaUtenteDto implements Serializable {
 
     @Min(1)
     private int idRuolo;
-
 }

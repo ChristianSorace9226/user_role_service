@@ -60,5 +60,4 @@ public class GlobalExceptionHandler {
         errors.add(ex.getMessage());
         return CustomResponse.error(errors);
     }
-
 }
