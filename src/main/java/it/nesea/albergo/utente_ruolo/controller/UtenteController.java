@@ -24,7 +24,7 @@ public class UtenteController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<CustomResponse<List<UtenteDto>>> getUtenteById(@RequestBody RicercaUtenteDto ricercaUtenteDto) {
+    public ResponseEntity<CustomResponse<List<UtenteDto>>> getUtenteById(@Valid @RequestBody RicercaUtenteDto ricercaUtenteDto) {
         return ResponseEntity.ok(CustomResponse.success(userService.getUtenti(ricercaUtenteDto)));
     }
 
