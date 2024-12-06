@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "UTENTE", schema = "USER_ROLE")
@@ -28,8 +29,8 @@ public class Utente implements Serializable {
     @JoinColumn(name = "ID_RUOLO", nullable = false)
     private Ruolo ruolo;
 
-    @Column(name = "CANCELLATO", nullable = false)
-    private boolean cancellato;
+    @Column(name = "DATA_CANCELLAZIONE")
+    private LocalDate dataCancellazione;
 
     public short getId() {
         return id;
@@ -63,11 +64,11 @@ public class Utente implements Serializable {
         this.ruolo = idRuolo;
     }
 
-    public boolean isCancellato() {
-        return cancellato;
+    public LocalDate getDataCancellazione() {
+        return dataCancellazione;
     }
 
-    public void setCancellato(boolean cancellato) {
-        this.cancellato = cancellato;
+    public void setDataCancellazione(LocalDate dataCancellazione) {
+        this.dataCancellazione = dataCancellazione;
     }
 }
