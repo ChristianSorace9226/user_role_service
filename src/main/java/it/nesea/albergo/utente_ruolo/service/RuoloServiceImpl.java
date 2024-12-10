@@ -38,6 +38,9 @@ public class RuoloServiceImpl implements RuoloService {
     public RuoloDTO creaRuolo(CreaRuoloRequest request) {
         log.info("request in input: {}", request);
         Ruolo ruolo = ruoloMapper.requestToEntity(request);
+        if (ruolo.getNome() != null) {
+            ruolo.setNome(ruolo.getNome().toLowerCase().trim());
+        }
         try {
             ruolo = ruoloRepository.save(ruolo);
             log.debug("Entita' ruolo salvata su db");
@@ -55,7 +58,7 @@ public class RuoloServiceImpl implements RuoloService {
         if (ruoloRepository.findById(id).isPresent()) {
             log.info("trovato ruolo con id fornito");
             Ruolo ruolo = ruoloRepository.findById(id).get();
-            ruolo.setNome(request.getNome());
+            ruolo.setNome(request.getNome().toLowerCase().trim());
             ruolo = ruoloRepository.save(ruolo);
             log.info("Ruolo modificato salvato correttamente sul db");
             return ruoloMapper.toRuoloDTO(ruolo);
@@ -68,6 +71,7 @@ public class RuoloServiceImpl implements RuoloService {
     @Override
     @Transactional
     public Void cancellaRuolo(Integer id) {
+        log.info("Cancellazione ruolo per id {}", id);
         //todo: aggiungi il controllo per verificare che,prima di cancellare un ruolo,non sia assegnato ad un utente valido
         if (ruoloRepository.findById(id).isPresent()) {
             log.info("il ruolo trovato esiste nel db");
@@ -102,22 +106,25 @@ public class RuoloServiceImpl implements RuoloService {
 
     @Override
     public Object ricercaRuolo(String nome) {
-        if (nome != null && !nome.isEmpty()) {
-            log.info("ricerca ruolo per nome {}",nome);
-            Ruolo ruolo = ruoloRepository.findByNome(nome);
+        log.info("Ricerca ruolo per nome {}", nome);
+        if (nome != null && !nome.trim().isEmpty()) {
+            String nomeTrimmato = nome.trim().toLowerCase();
+            Ruolo ruolo = ruoloRepository.findByNomeIgnoreCase(nomeTrimmato);
             if (ruolo != null) {
                 return ruoloMapper.toRuoloDTO(ruolo);
             } else {
-                StringBuilder sb = new StringBuilder().append("ruolo ").append(nome).append(" non trovato");
+                StringBuilder sb = new StringBuilder().append("Ruolo '").append(nome).append("' non trovato");
                 log.warn(sb.toString());
                 throw new NotFoundException(sb.toString());
             }
         } else {
-            log.info("ricerca tutti i ruoli");
+            log.info("Ricerca di tutti i ruoli");
             List<Ruolo> ruoli = ruoloRepository.findAll();
             return ruoli.stream()
                     .map(ruoloMapper::toRuoloDTO)
                     .collect(Collectors.toList());
         }
     }
+
+
 }
