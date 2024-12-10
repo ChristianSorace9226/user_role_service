@@ -72,7 +72,7 @@ public class RuoloServiceImpl implements RuoloService {
     @Transactional
     public Void cancellaRuolo(Integer id) {
         log.info("Cancellazione ruolo per id {}", id);
-        //todo: aggiungi il controllo per verificare che,prima di cancellare un ruolo,non sia assegnato ad un utente valido
+        // aggiungo il controllo per verificare che,prima di cancellare un ruolo,non sia assegnato ad un utente valido
         if (ruoloRepository.findById(id).isPresent()) {
             log.info("il ruolo trovato esiste nel db");
             Ruolo ruolo = ruoloRepository.findById(id).get();
