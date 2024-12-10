@@ -13,9 +13,10 @@ NOCACHE
 NOCYCLE;
 
 CREATE TABLE user_role.ruolo (
-	id NUMBER(2) NOT NULL DEFAULT NEXT VALUE FOR user_role.seq_ruolo,
-	nome VARCHAR(20) NOT NULL,
-	CONSTRAINT pk_ruolo PRIMARY KEY(id)
+    id NUMBER(2) NOT NULL DEFAULT NEXT VALUE FOR user_role.seq_ruolo,
+    nome VARCHAR(20) NOT NULL,
+    CONSTRAINT pk_ruolo PRIMARY KEY(id),
+    CONSTRAINT uq_nome UNIQUE (nome)
 );
 
 CREATE SEQUENCE user_role.seq_utente

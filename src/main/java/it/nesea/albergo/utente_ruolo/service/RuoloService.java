@@ -15,7 +15,7 @@ public interface RuoloService {
 
     Void cancellaRuolo(Integer id);
 
-    <T> T ricercaRuolo(String nome);
+    Object ricercaRuolo(String nome);
 
     List<UtenteDto> assegnaRuolo(AssegnaRuoloRequest request);
 }

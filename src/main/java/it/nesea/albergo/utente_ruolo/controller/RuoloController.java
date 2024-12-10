@@ -19,28 +19,28 @@ public class RuoloController {
 
     private final RuoloService ruoloService;
 
-    @PostMapping("/crea-ruolo")
+    @PostMapping("/crea")
     public ResponseEntity<CustomResponse<RuoloDTO>> creaRuolo(@Valid @RequestBody CreaRuoloRequest request) {
         return ResponseEntity.ok(CustomResponse.success(ruoloService.creaRuolo(request)));
     }
 
-    @PutMapping("/modifica-ruolo/{id}")
+    @PutMapping("/modifica/{id}")
     public ResponseEntity<CustomResponse<RuoloDTO>> modificaRuolo(@Valid @RequestBody CreaRuoloRequest request,
                                                                   @PathVariable Integer id) {
         return ResponseEntity.ok(CustomResponse.success(ruoloService.modificaRuolo(request, id)));
     }
 
-    @DeleteMapping("/cancella-ruolo/{id}")
+    @DeleteMapping("/cancella/{id}")
     public ResponseEntity<CustomResponse<Void>> cancellaRuolo(@Valid @PathVariable Integer id) {
         return ResponseEntity.ok(CustomResponse.success(ruoloService.cancellaRuolo(id)));
     }
 
-    @GetMapping("/ricerca-ruolo")
+    @GetMapping("/ricerca")
     public ResponseEntity<CustomResponse<?>> ricercaRuolo(@Valid @RequestParam(value = "nome", required = false) String nome) {
         return ResponseEntity.ok(CustomResponse.success(ruoloService.ricercaRuolo(nome)));
     }
 
-    @PostMapping("/assegna-ruolo")
+    @PostMapping("/assegna")
     public ResponseEntity<CustomResponse<?>> assegnaRuolo(@Valid @RequestBody AssegnaRuoloRequest request) {
         return ResponseEntity.ok(CustomResponse.success(ruoloService.assegnaRuolo(request)));
     }

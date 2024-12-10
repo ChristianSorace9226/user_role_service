@@ -4,6 +4,7 @@ import it.nesea.albergo.utente_ruolo.dto.RuoloDTO;
 import it.nesea.albergo.utente_ruolo.dto.UtenteDto;
 import it.nesea.albergo.utente_ruolo.dto.request.AssegnaRuoloRequest;
 import it.nesea.albergo.utente_ruolo.dto.request.CreaRuoloRequest;
+import it.nesea.albergo.utente_ruolo.exception.BadRequestException;
 import it.nesea.albergo.utente_ruolo.exception.NotFoundException;
 import it.nesea.albergo.utente_ruolo.mapper.RuoloMapper;
 import it.nesea.albergo.utente_ruolo.mapper.UtenteMapper;
@@ -14,6 +15,7 @@ import it.nesea.albergo.utente_ruolo.model.repository.UtenteRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,21 +37,22 @@ public class RuoloServiceImpl implements RuoloService {
     @Override
     @Transactional
     public RuoloDTO creaRuolo(CreaRuoloRequest request) {
-        Ruolo ruolo = ruoloRepository.findByNome(request.getNome());
-        if (ruolo == null) {
-            ruolo = ruoloMapper.requestToEntity(request);
+        log.info("request in input: {}", request);
+        Ruolo ruolo = ruoloMapper.requestToEntity(request);
+        try {
             ruolo = ruoloRepository.save(ruolo);
-            log.info("Entita' ruolo salvata su db");
+            log.debug("Entita' ruolo salvata su db");
             return ruoloMapper.toRuoloDTO(ruolo);
-        } else {
-            log.warn("Ruolo già presente nel db: non e' possibile aggiungere un ruolo gia esistente");
-            throw new NotFoundException("record gia presente nel db");
+        } catch (DataIntegrityViolationException e) {
+            log.warn("Ruolo già presente nel db: non è possibile aggiungere un ruolo già esistente");
+            throw new BadRequestException("Esiste già un ruolo con il nome scelto");
         }
     }
 
     @Override
     @Transactional
     public RuoloDTO modificaRuolo(CreaRuoloRequest request, Integer id) {
+        log.info("Richiesta ricevuta per la modifica del ruolo con ID: {}, Dati richiesta: {}", id, request);
         if (ruoloRepository.findById(id).isPresent()) {
             log.info("trovato ruolo con id fornito");
             Ruolo ruolo = ruoloRepository.findById(id).get();
@@ -81,6 +84,7 @@ public class RuoloServiceImpl implements RuoloService {
 
     @Override
     public List<UtenteDto> assegnaRuolo(AssegnaRuoloRequest request) {
+        log.info("Richiesta ricevuta per l'assegnazione del ruolo: {}", request);
         Integer idRuolo = request.getIdRuolo();
         Ruolo ruolo = ruoloRepository.findById(idRuolo).orElseThrow(() ->
                 new NotFoundException("Ruolo non trovato per id: " + idRuolo));
@@ -100,9 +104,9 @@ public class RuoloServiceImpl implements RuoloService {
     @Override
     public Object ricercaRuolo(String nome) {
         if (nome != null && !nome.isEmpty()) {
+            log.info("ricerca ruolo per nome {}",nome);
             Ruolo ruolo = ruoloRepository.findByNome(nome);
             if (ruolo != null) {
-                log.info("ricerca ruolo per nome");
                 return ruoloMapper.toRuoloDTO(ruolo);
             } else {
                 StringBuilder sb = new StringBuilder().append("ruolo ").append(nome).append(" non trovato");
