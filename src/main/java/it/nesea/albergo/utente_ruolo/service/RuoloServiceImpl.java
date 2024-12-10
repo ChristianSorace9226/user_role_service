@@ -91,18 +91,21 @@ public class RuoloServiceImpl implements RuoloService {
         Integer idRuolo = request.getIdRuolo();
         Ruolo ruolo = ruoloRepository.findById(idRuolo).orElseThrow(() ->
                 new NotFoundException("Ruolo non trovato per id: " + idRuolo));
-        List<Utente> utenti = utenteRepository.findAllById(request.getIdsUtente());
+        List<Utente> utenti = utenteRepository.findAllById(request.getIdsUtente()).stream()
+                .filter(utente -> utente.getDataCancellazione() == null)  // Verifico che l'utente non sia cancellato logicamente
+                .collect(Collectors.toList());
         if (utenti.isEmpty()) {
-            log.warn("lista utenti vuota: nessun utente trovato con i rispettivi id");
-            throw new NotFoundException("Nessun utente trovato con gli ID forniti.");
+            log.warn("Nessun utente attivo trovato con gli ID forniti");
+            throw new NotFoundException("Nessun utente attivo trovato con gli ID forniti.");
         }
         utenti.forEach(utente -> utente.setRuolo(ruolo));
         utenteRepository.saveAll(utenti);
-        log.info("lista utenti aggiornata con i ruoli salvata correttamente nel db");
+        log.info("Lista utenti aggiornata con i ruoli salvata correttamente nel db");
         return utenti.stream()
                 .map(utenteMapper::entityToDto)
                 .collect(Collectors.toList());
     }
+
 
     @Override
     public Object ricercaRuolo(String nome) {
