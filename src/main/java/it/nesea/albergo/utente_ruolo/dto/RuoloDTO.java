@@ -24,5 +24,4 @@ public class RuoloDTO implements Serializable {
 
     @NotBlank
     String nome;
-
 }

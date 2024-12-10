@@ -17,5 +17,4 @@ public class UtenteDto implements Serializable {
     private String cognome;
     private int idRuolo;
     private LocalDate dataCancellazione;
-
 }

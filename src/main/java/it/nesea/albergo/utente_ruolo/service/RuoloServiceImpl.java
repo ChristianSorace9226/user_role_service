@@ -33,7 +33,6 @@ public class RuoloServiceImpl implements RuoloService {
     private final UtenteMapper utenteMapper;
     private final RuoloMapper ruoloMapper;
 
-
     @Override
     @Transactional
     public RuoloDTO creaRuolo(CreaRuoloRequest request) {
@@ -121,6 +120,4 @@ public class RuoloServiceImpl implements RuoloService {
                     .collect(Collectors.toList());
         }
     }
-
-
 }

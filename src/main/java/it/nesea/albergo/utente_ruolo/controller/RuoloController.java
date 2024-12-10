@@ -44,6 +44,4 @@ public class RuoloController {
     public ResponseEntity<CustomResponse<?>> assegnaRuolo(@Valid @RequestBody AssegnaRuoloRequest request) {
         return ResponseEntity.ok(CustomResponse.success(ruoloService.assegnaRuolo(request)));
     }
-
-
 }

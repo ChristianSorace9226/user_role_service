@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "UTENTE", schema = "USER_ROLE")
 public class Utente implements Serializable {
+
     @Serial
     private static final long serialVersionUID = -4853865046646149642L;
 
