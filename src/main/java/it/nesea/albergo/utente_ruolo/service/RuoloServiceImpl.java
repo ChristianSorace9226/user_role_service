@@ -90,7 +90,7 @@ public class RuoloServiceImpl implements RuoloService {
         log.info("Richiesta ricevuta per l'assegnazione del ruolo: {}", request);
         Integer idRuolo = request.getIdRuolo();
         Ruolo ruolo = ruoloRepository.findById(idRuolo).orElseThrow(() ->
-                new NotFoundException("Ruolo non trovato per id: " + idRuolo));
+                new NotFoundException("Ruolo non trovato"));
         List<Utente> utenti = utenteRepository.findAllById(request.getIdsUtente()).stream()
                 .filter(utente -> utente.getDataCancellazione() == null)  // Verifico che l'utente non sia cancellato logicamente
                 .collect(Collectors.toList());
