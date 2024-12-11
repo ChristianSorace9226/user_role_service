@@ -39,11 +39,11 @@ public class RuoloServiceImpl implements RuoloService {
         log.info("request in input: {}", request);
         Ruolo ruolo = ruoloMapper.requestToEntity(request);
         if (ruolo.getNome() != null) {
-            ruolo.setNome(ruolo.getNome().toLowerCase().trim());
+            ruolo.setNome(ruolo.getNome().toLowerCase().trim()); // Rimuove gli spazi all'inizio e fine
         }
         try {
             ruolo = ruoloRepository.save(ruolo);
-            log.debug("Entita' ruolo salvata su db");
+            log.debug("Entità ruolo salvata su db");
             return ruoloMapper.toRuoloDTO(ruolo);
         } catch (DataIntegrityViolationException e) {
             log.warn("Ruolo già presente nel db: non è possibile aggiungere un ruolo già esistente");
