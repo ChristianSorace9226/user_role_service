@@ -63,7 +63,7 @@ public class RuoloServiceImpl implements RuoloService {
             log.info("Ruolo modificato salvato correttamente sul db");
             return ruoloMapper.toRuoloDTO(ruolo);
         } else {
-            log.warn("Stai cercando di modificare un record che non esiste");
+            log.warn("Stai cercando di modificare un record che non esiste con id: {}", id);
             throw new NotFoundException("Nessun ruolo trovato dato l'id");
         }
     }
@@ -79,7 +79,7 @@ public class RuoloServiceImpl implements RuoloService {
             ruoloRepository.delete(ruolo);
             log.info("Ruolo cancellato correttamente");
         } else {
-            log.warn("Nessun ruolo trovato con l'id selezionato");
+            log.warn("Nessun ruolo trovato con l'id selezionato:  {}", id);
             throw new NotFoundException("Nessun ruolo trovato dato l'id");
         }
         return null;
@@ -117,7 +117,7 @@ public class RuoloServiceImpl implements RuoloService {
                 return ruoloMapper.toRuoloDTO(ruolo);
             } else {
                 StringBuilder sb = new StringBuilder().append("Ruolo '").append(nome).append("' non trovato");
-                log.warn(sb.toString());
+                log.warn("Ruolo non trovato con nome: {}", nome);
                 throw new NotFoundException(sb.toString());
             }
         } else {
