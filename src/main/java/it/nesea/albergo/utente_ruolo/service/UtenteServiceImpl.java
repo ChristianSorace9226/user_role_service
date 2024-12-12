@@ -18,7 +18,6 @@ import jakarta.persistence.criteria.Root;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +46,8 @@ public class UtenteServiceImpl implements UtenteService {
                 .orElseThrow(() -> new NotFoundException("Ruolo non trovato"));
         utente.setRuolo(ruolo);
         utente.setDataCancellazione(null);
+        utente.setNome(creaUtenteDto.getNome().toLowerCase().trim());
+        utente.setCognome(creaUtenteDto.getCognome().toLowerCase().trim());
         utenteRepository.save(utente);
         return utenteMapper.entityToDto(utente);
     }
@@ -67,11 +68,11 @@ public class UtenteServiceImpl implements UtenteService {
         Utente utente = utenteRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Utente non trovato"));
         if (modUtenteDto.getNome() != null) {
-            utente.setNome(modUtenteDto.getNome());
+            utente.setNome(modUtenteDto.getNome().toLowerCase().trim());
             log.info("Nome modificato");
         }
         if (modUtenteDto.getCognome() != null) {
-            utente.setCognome(modUtenteDto.getCognome());
+            utente.setCognome(modUtenteDto.getCognome().toLowerCase().trim());
             log.info("Cognome modificato");
         }
         if (modUtenteDto.getIdRuolo() != null) {
@@ -86,6 +87,8 @@ public class UtenteServiceImpl implements UtenteService {
 
     @Override
     public List<UtenteDto> getUtenti(RicercaUtenteDto ricercaUtenteDto) {
+        log.info("Oggetto di ricerca ricevuto: {}", ricercaUtenteDto);
+
         if (ricercaUtenteDto.getIdUtente() == null && ricercaUtenteDto.getNome() == null) {
             log.info("Ricerca utenti: nessun criterio di ricerca specificato. Inizio ricerca non filtrata");
             List<Utente> utenti = utenteRepository.findAll();
@@ -105,11 +108,15 @@ public class UtenteServiceImpl implements UtenteService {
             log.info("Ricerca utente [{}]", ricercaUtenteDto.getIdUtente());
             predicates.add(criteriaBuilder.equal(root.get("id"), ricercaUtenteDto.getIdUtente()));
         }
+
         if (ricercaUtenteDto.getNome() != null) {
             log.info("Ricerca utenti con nome [{}]", ricercaUtenteDto.getNome());
-            predicates.add(criteriaBuilder.like(root.get("nome"), "%" + ricercaUtenteDto.getNome() + "%"));
+            String nomeTrimmato = ricercaUtenteDto.getNome().trim().toLowerCase();
+            predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("nome")), "%" + nomeTrimmato + "%"));
         }
+
         criteriaQuery.where(criteriaBuilder.and(predicates.toArray(new Predicate[0])));
         return utenteMapper.toDtoList(entityManager.createQuery(criteriaQuery).getResultList());
     }
+
 }
