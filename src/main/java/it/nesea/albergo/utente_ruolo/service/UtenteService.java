@@ -6,12 +6,13 @@ import it.nesea.albergo.utente_ruolo.dto.request.ModUtenteDto;
 import it.nesea.albergo.utente_ruolo.dto.request.RicercaUtenteDto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface UtenteService {
     UtenteDto createUtente(CreaUtenteDto creaUtenteDto);
 
-    LocalDate cancellaUtente(short id);
+    LocalDateTime cancellaUtente(short id);
 
     UtenteDto modificaUtente(ModUtenteDto modUtenteDto, short id);
 

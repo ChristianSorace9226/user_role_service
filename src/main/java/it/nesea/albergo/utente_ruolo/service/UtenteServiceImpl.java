@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,18 +52,18 @@ public class UtenteServiceImpl implements UtenteService {
     }
 
     @Override
-    public LocalDate cancellaUtente(short id) {
-        log.info("Cancellazione utente [{}] iniziata", id);
+    public LocalDateTime cancellaUtente(short id) {
+        log.info("Cancellazione utente con id: [{}]", id);
         Utente utente = utenteRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Utente non trovato"));
-        utente.setDataCancellazione(LocalDate.now());
+        utente.setDataCancellazione(LocalDateTime.now());
         utenteRepository.save(utente);
         return utente.getDataCancellazione();
     }
 
     @Override
     public UtenteDto modificaUtente(ModUtenteDto modUtenteDto, short id) {
-        log.info("Modifica utente [{}]", id);
+        log.info("Modifica utente con id: [{}]", id);
         Utente utente = utenteRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Utente non trovato"));
         if (modUtenteDto.getNome() != null) {

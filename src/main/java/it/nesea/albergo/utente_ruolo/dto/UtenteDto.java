@@ -5,6 +5,7 @@ import lombok.Data;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 public class UtenteDto implements Serializable {
@@ -16,5 +17,5 @@ public class UtenteDto implements Serializable {
     private String nome;
     private String cognome;
     private int idRuolo;
-    private LocalDate dataCancellazione;
+    private LocalDateTime dataCancellazione;
 }

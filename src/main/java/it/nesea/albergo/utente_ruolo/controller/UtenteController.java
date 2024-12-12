@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -33,8 +34,8 @@ public class UtenteController {
         return ResponseEntity.ok(CustomResponse.success(userService.createUtente(creaUtenteDto)));
     }
 
-    @PutMapping("/cancella/{id}")
-    public ResponseEntity<CustomResponse<LocalDate>> cancellazioneUtente(@PathVariable int id) {
+    @DeleteMapping("/cancella/{id}")
+    public ResponseEntity<CustomResponse<LocalDateTime>> cancellazioneUtente(@PathVariable int id) {
         return ResponseEntity.ok(CustomResponse.success(userService.cancellaUtente((short) id)));
     }
 
