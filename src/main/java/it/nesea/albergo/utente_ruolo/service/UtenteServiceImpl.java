@@ -103,6 +103,7 @@ public class UtenteServiceImpl implements UtenteService {
             }
             return utenteMapper.toDtoList(utenti);
         }
+
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Utente> criteriaQuery = criteriaBuilder.createQuery(Utente.class);
         Root<Utente> root = criteriaQuery.from(Utente.class);
@@ -115,13 +116,18 @@ public class UtenteServiceImpl implements UtenteService {
         }
 
         if (ricercaUtenteDto.getNome() != null) {
+            if (ricercaUtenteDto.getNome().trim().isEmpty()) {
+                log.warn("il campo nome non può essere vuoto");
+                throw new BadRequestException("Campo nome non può essere vuoto");
+            }
             log.info("Ricerca utenti con nome {}", ricercaUtenteDto.getNome());
             String nomeTrimmato = ricercaUtenteDto.getNome().trim().toLowerCase();
-            predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("nome")), "%" + nomeTrimmato + "%"));
+            predicates.add(criteriaBuilder.equal(criteriaBuilder.lower(root.get("nome")), nomeTrimmato ));
         }
 
         criteriaQuery.where(criteriaBuilder.and(predicates.toArray(new Predicate[0])));
         return utenteMapper.toDtoList(entityManager.createQuery(criteriaQuery).getResultList());
     }
+
 
 }

@@ -24,8 +24,8 @@ public class UtenteController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
-    public ResponseEntity<CustomResponse<List<UtenteDto>>> getUtenteById(@Valid @RequestBody RicercaUtenteDto ricercaUtenteDto) {
+    @PostMapping("/")
+    public ResponseEntity<CustomResponse<List<UtenteDto>>> getUtenteById(@RequestBody RicercaUtenteDto ricercaUtenteDto) {
         return ResponseEntity.ok(CustomResponse.success(userService.getUtenti(ricercaUtenteDto)));
     }
 
