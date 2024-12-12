@@ -4,6 +4,7 @@ import it.nesea.albergo.utente_ruolo.dto.UtenteDto;
 import it.nesea.albergo.utente_ruolo.dto.request.CreaUtenteDto;
 import it.nesea.albergo.utente_ruolo.dto.request.ModUtenteDto;
 import it.nesea.albergo.utente_ruolo.dto.request.RicercaUtenteDto;
+import it.nesea.albergo.utente_ruolo.exception.BadRequestException;
 import it.nesea.albergo.utente_ruolo.exception.NotFoundException;
 import it.nesea.albergo.utente_ruolo.mapper.UtenteMapper;
 import it.nesea.albergo.utente_ruolo.model.entity.Ruolo;
@@ -65,24 +66,23 @@ public class UtenteServiceImpl implements UtenteService {
     @Override
     public UtenteDto modificaUtente(ModUtenteDto modUtenteDto, short id) {
         log.info("Modifica utente con id: [{}], oggetto request in input: [{}]", id, modUtenteDto);
+
         Utente utente = utenteRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Utente non trovato"));
-        if (modUtenteDto.getNome() != null) {
+
+        if (utente.getDataCancellazione() == null) {
             utente.setNome(modUtenteDto.getNome().toLowerCase().trim());
             log.info("Nome modificato");
-        }
-        if (modUtenteDto.getCognome() != null) {
+
             utente.setCognome(modUtenteDto.getCognome().toLowerCase().trim());
             log.info("Cognome modificato");
+
+            utenteRepository.save(utente);
+            return utenteMapper.entityToDto(utente);
+        } else {
+            log.warn("Stai tentando di modificare un utente cancellato in data: {}", utente.getDataCancellazione());
+            throw new NotFoundException("Utente cancellato non modificabile");
         }
-        if (modUtenteDto.getIdRuolo() != null) {
-            Ruolo ruolo = ruoloRepository.findById(modUtenteDto.getIdRuolo())
-                    .orElseThrow(() -> new NotFoundException("Ruolo non trovato"));
-            utente.setRuolo(ruolo);
-            log.info("Ruolo modificato");
-        }
-        utenteRepository.save(utente);
-        return utenteMapper.entityToDto(utente);
     }
 
     @Override

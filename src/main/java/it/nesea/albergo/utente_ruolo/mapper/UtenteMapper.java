@@ -17,7 +17,6 @@ import java.util.List;
 )
 public interface UtenteMapper {
 
-    @Mapping(source = "ruolo", target = "idRuolo")
     ModUtenteDto toModUtenteDto(Utente utente);
 
     Utente fromModUtenteDtoToUtente(ModUtenteDto creaUtenteDto);
