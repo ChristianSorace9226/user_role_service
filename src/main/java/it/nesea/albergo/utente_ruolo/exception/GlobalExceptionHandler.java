@@ -102,6 +102,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(CustomResponse.error(errors));
     }
 
+    //todo: feature/ gestione BadRequestException
+
     // Metodo per creare una risposta di errore
     private CustomResponse getError(Exception ex) {
         List<String> errors = new ArrayList<>(1);

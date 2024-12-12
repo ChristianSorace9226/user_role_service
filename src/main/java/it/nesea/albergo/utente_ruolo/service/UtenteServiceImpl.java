@@ -55,7 +55,7 @@ public class UtenteServiceImpl implements UtenteService {
 
     @Override
     public LocalDateTime cancellaUtente(short id) {
-        log.info("Cancellazione utente con id: [{}]", id);
+        log.info("Cancellazione utente con id: {}", id);
         Utente utente = utenteRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Utente non trovato"));
         utente.setDataCancellazione(LocalDateTime.now());
@@ -65,7 +65,12 @@ public class UtenteServiceImpl implements UtenteService {
 
     @Override
     public UtenteDto modificaUtente(ModUtenteDto modUtenteDto, short id) {
-        log.info("Modifica utente con id: [{}], oggetto request in input: [{}]", id, modUtenteDto);
+        log.info("Modifica utente con id: {}, oggetto request in input: [{}]", id, modUtenteDto);
+
+//        if (modUtenteDto.getNome().isBlank() && modUtenteDto.getCognome().isBlank()) {
+//            log.warn("L'oggetto: [{}] non può avere entrambi i campi vuoti", modUtenteDto);
+//            throw new BadRequestException("Almeno un campo deve essere valorizzato");
+//        } //todo: possibile release
 
         Utente utente = utenteRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Utente non trovato"));
@@ -87,7 +92,7 @@ public class UtenteServiceImpl implements UtenteService {
 
     @Override
     public List<UtenteDto> getUtenti(RicercaUtenteDto ricercaUtenteDto) {
-        log.info("Oggetto di ricerca ricevuto: {}", ricercaUtenteDto);
+        log.info("Oggetto di ricerca ricevuto: [{}]", ricercaUtenteDto);
 
         if (ricercaUtenteDto.getIdUtente() == null && ricercaUtenteDto.getNome() == null) {
             log.info("Ricerca utenti: nessun criterio di ricerca specificato. Inizio ricerca non filtrata");
@@ -105,12 +110,12 @@ public class UtenteServiceImpl implements UtenteService {
         predicates.add(criteriaBuilder.isNull(root.get("dataCancellazione")));
 
         if (ricercaUtenteDto.getIdUtente() != null) {
-            log.info("Ricerca utente [{}]", ricercaUtenteDto.getIdUtente());
+            log.info("Ricerca utente {}", ricercaUtenteDto.getIdUtente());
             predicates.add(criteriaBuilder.equal(root.get("id"), ricercaUtenteDto.getIdUtente()));
         }
 
         if (ricercaUtenteDto.getNome() != null) {
-            log.info("Ricerca utenti con nome [{}]", ricercaUtenteDto.getNome());
+            log.info("Ricerca utenti con nome {}", ricercaUtenteDto.getNome());
             String nomeTrimmato = ricercaUtenteDto.getNome().trim().toLowerCase();
             predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("nome")), "%" + nomeTrimmato + "%"));
         }

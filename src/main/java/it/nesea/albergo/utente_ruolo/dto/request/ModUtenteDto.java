@@ -17,8 +17,8 @@ public class ModUtenteDto implements Serializable {
     @Size(min = 2, max = 50, message = "il nome non puo contenere meno di 2 caratteri e non puo essere lungo più di 50")
     private String nome;
 
-    @NotBlank(message = "il nome non puo essere vuoto e non puo essere null")
-    @Size(min = 2, max = 50, message = "il nome non puo contenere meno di 2 caratteri e non puo essere lungo più di 50")
+    @NotBlank(message = "il cognome non puo essere vuoto e non puo essere null")
+    @Size(min = 2, max = 50, message = "il cognome non puo contenere meno di 2 caratteri e non puo essere lungo più di 50")
     private String cognome;
 
 }
