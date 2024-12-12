@@ -64,7 +64,7 @@ public class UtenteServiceImpl implements UtenteService {
 
     @Override
     public UtenteDto modificaUtente(ModUtenteDto modUtenteDto, short id) {
-        log.info("Modifica utente con id: [{}]", id);
+        log.info("Modifica utente con id: [{}], oggetto request in input: [{}]", id, modUtenteDto);
         Utente utente = utenteRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Utente non trovato"));
         if (modUtenteDto.getNome() != null) {
