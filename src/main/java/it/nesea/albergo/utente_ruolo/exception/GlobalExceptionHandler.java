@@ -103,7 +103,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<CustomResponse> handleGeneralException(BadRequestException ex) {
+    public ResponseEntity<CustomResponse> handleBadRequestException(BadRequestException ex) {
         log.error("Errore nella richiesta: " + ex.getMessage());
         List<String> errors = new ArrayList<>();
         errors.add("Errore nella ricezione dei dati. Dettagli: " + ex.getMessage());
