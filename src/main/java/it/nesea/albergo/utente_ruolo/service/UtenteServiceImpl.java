@@ -1,10 +1,10 @@
 package it.nesea.albergo.utente_ruolo.service;
 
+import it.nesea.albergo.common_lib.exception.NotFoundException;
 import it.nesea.albergo.utente_ruolo.dto.UtenteDto;
 import it.nesea.albergo.utente_ruolo.dto.request.CreaUtenteDto;
 import it.nesea.albergo.utente_ruolo.dto.request.ModUtenteDto;
 import it.nesea.albergo.utente_ruolo.dto.request.RicercaUtenteDto;
-import it.nesea.albergo.utente_ruolo.exception.NotFoundException;
 import it.nesea.albergo.utente_ruolo.mapper.UtenteMapper;
 import it.nesea.albergo.utente_ruolo.model.entity.Ruolo;
 import it.nesea.albergo.utente_ruolo.model.entity.Utente;

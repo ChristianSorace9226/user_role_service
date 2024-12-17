@@ -1,10 +1,10 @@
 package it.nesea.albergo.utente_ruolo.controller;
 
+import it.nesea.albergo.common_lib.dto.response.CustomResponse;
 import it.nesea.albergo.utente_ruolo.dto.UtenteDto;
 import it.nesea.albergo.utente_ruolo.dto.request.CreaUtenteDto;
 import it.nesea.albergo.utente_ruolo.dto.request.ModUtenteDto;
 import it.nesea.albergo.utente_ruolo.dto.request.RicercaUtenteDto;
-import it.nesea.albergo.utente_ruolo.dto.response.CustomResponse;
 import it.nesea.albergo.utente_ruolo.service.UtenteService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
