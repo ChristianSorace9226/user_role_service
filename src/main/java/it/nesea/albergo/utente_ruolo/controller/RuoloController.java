@@ -1,9 +1,9 @@
 package it.nesea.albergo.utente_ruolo.controller;
 
+import it.nesea.albergo.common_lib.dto.response.CustomResponse;
 import it.nesea.albergo.utente_ruolo.dto.RuoloDTO;
 import it.nesea.albergo.utente_ruolo.dto.request.AssegnaRuoloRequest;
 import it.nesea.albergo.utente_ruolo.dto.request.CreaRuoloRequest;
-import it.nesea.albergo.utente_ruolo.dto.response.CustomResponse;
 import it.nesea.albergo.utente_ruolo.service.RuoloService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
