@@ -1,15 +1,18 @@
 package it.nesea.albergo.utente_ruolo.controller;
 
 import it.nesea.albergo.common_lib.dto.response.CustomResponse;
-import it.nesea.albergo.utente_ruolo.dto.RuoloDTO;
 import it.nesea.albergo.utente_ruolo.dto.request.AssegnaRuoloRequest;
 import it.nesea.albergo.utente_ruolo.dto.request.CreaRuoloRequest;
+import it.nesea.albergo.utente_ruolo.dto.response.RuoloDTO;
+import it.nesea.albergo.utente_ruolo.dto.response.UtenteDto;
 import it.nesea.albergo.utente_ruolo.service.RuoloService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/ruolo")
@@ -41,7 +44,7 @@ public class RuoloController {
     }
 
     @PostMapping("/assegna")
-    public ResponseEntity<CustomResponse<?>> assegnaRuolo(@Valid @RequestBody AssegnaRuoloRequest request) {
+    public ResponseEntity<CustomResponse<List<UtenteDto>>> assegnaRuolo(@Valid @RequestBody AssegnaRuoloRequest request) {
         return ResponseEntity.ok(CustomResponse.success(ruoloService.assegnaRuolo(request)));
     }
 }

@@ -1,6 +1,5 @@
 package it.nesea.albergo.utente_ruolo.dto.request;
 
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.io.Serial;

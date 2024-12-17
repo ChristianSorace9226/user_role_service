@@ -1,4 +1,4 @@
-package it.nesea.albergo.utente_ruolo.dto;
+package it.nesea.albergo.utente_ruolo.dto.response;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;

@@ -1,11 +1,11 @@
 package it.nesea.albergo.utente_ruolo.service;
 
-import it.nesea.albergo.utente_ruolo.dto.RuoloDTO;
-import it.nesea.albergo.utente_ruolo.dto.UtenteDto;
-import it.nesea.albergo.utente_ruolo.dto.request.AssegnaRuoloRequest;
-import it.nesea.albergo.utente_ruolo.dto.request.CreaRuoloRequest;
 import it.nesea.albergo.common_lib.exception.BadRequestException;
 import it.nesea.albergo.common_lib.exception.NotFoundException;
+import it.nesea.albergo.utente_ruolo.dto.request.AssegnaRuoloRequest;
+import it.nesea.albergo.utente_ruolo.dto.request.CreaRuoloRequest;
+import it.nesea.albergo.utente_ruolo.dto.response.RuoloDTO;
+import it.nesea.albergo.utente_ruolo.dto.response.UtenteDto;
 import it.nesea.albergo.utente_ruolo.mapper.RuoloMapper;
 import it.nesea.albergo.utente_ruolo.mapper.UtenteMapper;
 import it.nesea.albergo.utente_ruolo.model.entity.Ruolo;
@@ -116,9 +116,9 @@ public class RuoloServiceImpl implements RuoloService {
             if (ruolo != null) {
                 return ruoloMapper.toRuoloDTO(ruolo);
             } else {
-                StringBuilder sb = new StringBuilder().append("Ruolo '").append(nome).append("' non trovato");
+                String sb = "Ruolo '" + nome + "' non trovato";
                 log.warn("Ruolo non trovato con nome: {}", nome);
-                throw new NotFoundException(sb.toString());
+                throw new NotFoundException(sb);
             }
         } else {
             log.info("Ricerca di tutti i ruoli");

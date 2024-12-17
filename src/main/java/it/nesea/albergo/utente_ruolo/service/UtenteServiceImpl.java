@@ -1,11 +1,11 @@
 package it.nesea.albergo.utente_ruolo.service;
 
-import it.nesea.albergo.utente_ruolo.dto.UtenteDto;
+import it.nesea.albergo.common_lib.exception.BadRequestException;
+import it.nesea.albergo.common_lib.exception.NotFoundException;
 import it.nesea.albergo.utente_ruolo.dto.request.CreaUtenteDto;
 import it.nesea.albergo.utente_ruolo.dto.request.ModUtenteDto;
 import it.nesea.albergo.utente_ruolo.dto.request.RicercaUtenteDto;
-import it.nesea.albergo.common_lib.exception.BadRequestException;
-import it.nesea.albergo.common_lib.exception.NotFoundException;
+import it.nesea.albergo.utente_ruolo.dto.response.UtenteDto;
 import it.nesea.albergo.utente_ruolo.mapper.UtenteMapper;
 import it.nesea.albergo.utente_ruolo.model.entity.Ruolo;
 import it.nesea.albergo.utente_ruolo.model.entity.Utente;
@@ -122,7 +122,7 @@ public class UtenteServiceImpl implements UtenteService {
             }
             log.info("Ricerca utenti con nome {}", ricercaUtenteDto.getNome());
             String nomeTrimmato = ricercaUtenteDto.getNome().trim().toLowerCase();
-            predicates.add(criteriaBuilder.equal(criteriaBuilder.lower(root.get("nome")), nomeTrimmato ));
+            predicates.add(criteriaBuilder.equal(criteriaBuilder.lower(root.get("nome")), nomeTrimmato));
         }
 
         criteriaQuery.where(criteriaBuilder.and(predicates.toArray(new Predicate[0])));
