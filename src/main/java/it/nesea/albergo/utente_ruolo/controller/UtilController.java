@@ -1,14 +1,12 @@
 package it.nesea.albergo.utente_ruolo.controller;
 
 import it.nesea.albergo.common_lib.dto.response.CustomResponse;
-import it.nesea.albergo.utente_ruolo.dto.request.RicercaUtenteDto;
-import it.nesea.albergo.utente_ruolo.dto.response.UtenteDto;
-import it.nesea.albergo.utente_ruolo.service.UtenteService;
 import it.nesea.albergo.utente_ruolo.service.UtilService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/util")
