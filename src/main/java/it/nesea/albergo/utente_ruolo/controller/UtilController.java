@@ -17,7 +17,7 @@ public class UtilController {
         this.utilService = utilService;
     }
 
-    @GetMapping("/exists")
+    @GetMapping("/checkUtente")
     public ResponseEntity<CustomResponse<Boolean>> getUtenteById(@RequestParam Integer idUtente) {
         return ResponseEntity.ok(CustomResponse.success(utilService.isUtentePresente(idUtente)));
     }
