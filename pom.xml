@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.6</version>
+        <version>3.4.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -16,6 +16,7 @@
     <description>MS - Gestione Utenti e Ruoli</description>
 
     <properties>
+        <openFeign.version>4.2.0</openFeign.version>
         <java.version>21</java.version>
         <h2.version>2.3.232</h2.version>
         <mapstruct.version>1.6.3</mapstruct.version>
@@ -71,6 +72,11 @@
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-processor</artifactId>
             <version>${mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>${openFeign.version}</version>
         </dependency>
     </dependencies>
 
