@@ -23,7 +23,7 @@ public class UtilServiceImpl implements UtilService {
         short idShort = id.shortValue();
         Optional<Utente> utente = utenteRepository.findById(idShort);
         if (utente.isPresent()) {
-            if (utente.get().getDataCancellazione() == null){
+            if (utente.get().getDataCancellazione() == null) {
                 log.info("L'utente con id {} esiste e non è stato cancellato", id);
                 return true;
             }
